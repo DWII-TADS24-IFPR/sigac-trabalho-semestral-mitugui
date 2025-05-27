@@ -57,6 +57,12 @@ class EixoController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $eixo = Eixo::find($id);
+
+        if ($eixo) {
+            $eixo->delete();
+        }
+
+        return redirect()->route('eixos.index')->with(['success'=>'Eixo '.$eixo->nome.' deletado com sucesso']);
     }
 }
