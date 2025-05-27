@@ -26,13 +26,22 @@
 
         <label for="total_horas" class="form-label">Total de Horas</label>
         <input type="number" class="form-control" id="total_horas" name="total_horas" required>
-        <label for="nivel" class="form-label">Nível</label>
 
+        <label for="nivel_id" class="form-label">Nível</label>
         <select class="form-select" id="nivel_id" name="nivel_id" required>
             <option value="">Selecione um nível</option>
 
             @foreach ($niveis as $nivel)
                 <option value="{{ $nivel->id }}">{{ $nivel->nome }}</option>
+            @endforeach
+        </select>
+
+        <label for="eixo_id" class="form-label">Eixo</label>
+        <select class="form-select" id="eixo_id" name="eixo_id" required>
+            <option value="">Selecione um eixo</option>
+
+            @foreach ($eixos as $eixo)
+                <option value="{{ $eixo->id }}">{{ $eixo->nome }}</option>
             @endforeach
         </select>
     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curso;
+use App\Models\Eixo;
 use App\Models\Nivel;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,7 @@ class CursoController extends Controller
         'sigla' => 'required|min:2|max:10',
         'total_horas' => 'required|integer|min:1',
         'nivel_id' => 'required|exists:nivels,id',
+        'eixo_id' => 'required|exists:eixos,id'
     ];
     
     protected $customMessages = [
@@ -25,6 +27,8 @@ class CursoController extends Controller
         'total_horas.integer' => 'O total de horas deve ser um número inteiro.',
         'nivel_id.required' => 'O nível é obrigatório.',
         'nivel_id.exists' => 'O nível selecionado é inválido.',
+        'eixo_id.required' => 'O eixo é obrigatório.',
+        'eixo_id.exists' => 'O eixo selecionado é inválido.'
     ];
 
     public function index()
@@ -34,7 +38,7 @@ class CursoController extends Controller
 
     public function create()
     {
-        return view('cursos.create')->with(['niveis' => Nivel::all()]);
+        return view('cursos.create')->with(['niveis' => Nivel::all(), 'eixos' => Eixo::all()]);
     }
 
     public function store(Request $request)
@@ -46,6 +50,7 @@ class CursoController extends Controller
             'sigla' => $request->sigla,
             'total_horas' => $request->total_horas,
             'nivel_id' => $request->nivel_id,
+            'eixo_id' => $request->eixo_id
         ]);
 
         return redirect()->route('cursos.index')->with(['success'=>'Curso '.$request->nome.' criado com sucesso!']);
@@ -54,8 +59,7 @@ class CursoController extends Controller
     public function show(string $id)
     {
         $curso = Curso::find($id);
-        $curso_nivel = Nivel::find($curso->nivel_id);
-        return view('cursos.show')->with(['curso' => $curso, 'curso_nivel' => $curso_nivel]);
+        return view('cursos.show')->with(['curso' => $curso, 'curso_nivel' => $curso->nivel]);
     }
 
     public function edit(string $id)
