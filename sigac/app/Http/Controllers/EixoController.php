@@ -7,6 +7,18 @@ use Illuminate\Http\Request;
 
 class EixoController extends Controller
 {
+    protected $validationRules = [
+        'nome' => 'required|string|min:3|max:255|unique:eixos,nome'
+    ];
+    
+    protected $customMessages = [
+        'nome.required' => 'O campo nome é obrigatório.',
+        'nome.string' => 'O campo nome deve ser uma string.',
+        'nome.min' => 'O campo nome deve ter pelo menos :min caracteres.',
+        'nome.max' => 'O campo nome não pode ter mais que :max caracteres.',
+        'nome.unique' => 'Já existe um eixo com esse nome.'
+    ];
+    
     public function index()
     {
         return view('eixos.index')->with(['eixos' => Eixo::all()]);
@@ -14,12 +26,18 @@ class EixoController extends Controller
 
     public function create()
     {
-        //
+        return view('eixos.create');
     }
 
     public function store(Request $request)
     {
-        //
+        $request->validate($this->validationRules, $this->customMessages);
+
+        Eixo::create([
+            'nome' => $request->nome
+        ]);
+
+        return redirect()->route('eixos.index')->with(['success'=>'Eixo '.$request->nome.' criado com sucesso!']);
     }
 
     public function show(string $id)
