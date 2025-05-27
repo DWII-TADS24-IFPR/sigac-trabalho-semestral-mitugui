@@ -19,7 +19,7 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">NOME</th>
-            <th></th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -29,6 +29,12 @@
                 <td scope="col">{{ $eixo->nome }}</td>
                 <td>
                     <div class="d-flex gap-3 justify-content-end">
+                        <form
+                            action="{{ route('eixos.show', $eixo->id) }}"
+                            method="GET"
+                        >
+                            <button type="submit" class="btn btn-light">Ver</i></button>
+                        </form>
                         <form
                             action="{{ route('eixos.edit', $eixo->id) }}"
                             method="GET"

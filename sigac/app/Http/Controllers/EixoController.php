@@ -42,7 +42,8 @@ class EixoController extends Controller
 
     public function show(string $id)
     {
-        //
+        $eixo = Eixo::find($id);
+        return view('eixos.show')->with(['eixo' => $eixo]);
     }
 
     public function edit(string $id)
