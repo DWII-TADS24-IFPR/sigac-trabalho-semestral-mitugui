@@ -59,12 +59,12 @@ class CursoController extends Controller
     public function show(string $id)
     {
         $curso = Curso::find($id);
-        return view('cursos.show')->with(['curso' => $curso, 'curso_nivel' => $curso->nivel]);
+        return view('cursos.show')->with(['curso' => $curso, 'curso_nivel' => $curso->nivel, 'curso_eixo' => $curso->eixo]);
     }
 
     public function edit(string $id)
     {
-        return view('cursos.edit')->with(['curso' => Curso::find($id), 'niveis' => Nivel::all()]);
+        return view('cursos.edit')->with(['curso' => Curso::find($id), 'niveis' => Nivel::all(), 'eixos' => Eixo::all()]);
     }
 
     public function update(Request $request, string $id)
@@ -78,6 +78,7 @@ class CursoController extends Controller
             $curso->sigla = $request->sigla;
             $curso->total_horas = $request->total_horas;
             $curso->nivel_id = $request->nivel_id;
+            $curso->eixo_id = $request->eixo_id;
 
             $curso->save();
             return redirect()->route('cursos.index')->with(['success'=>'Curso '.$curso->id.' atualizado com sucesso']);

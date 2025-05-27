@@ -28,6 +28,7 @@
         <label for="total_horas" class="form-label">Total de Horas</label>
         <input type="text" class="form-control" id="total_horas" name="total_horas" value="{{ $curso->total_horas }}" required>
 
+        <label for="nivel_id" class="form-label">Nível</label>
         <select class="form-select" id="nivel_id" name="nivel_id" required>
             <option value="{{ $curso->nivel->id }}" selected>{{ $curso->nivel->nome }}</option>
         
@@ -37,6 +38,16 @@
                 @endif
             @endforeach
         </select>
+        
+        <label for="eixo_id" class="form-label">Eixo</label>
+        <select class="form-select" id="eixo_id" name="eixo_id" required>
+            <option value="">Selecione um eixo</option>
+
+            @foreach ($eixos as $eixo)
+                <option value="{{ $eixo->id }}">{{ $eixo->nome }}</option>
+            @endforeach
+        </select>
+        
     </div>
     
     <button type="submit" class="btn btn-primary">Atualizar</button>
