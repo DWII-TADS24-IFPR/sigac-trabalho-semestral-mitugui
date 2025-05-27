@@ -47,12 +47,21 @@ class EixoController extends Controller
 
     public function edit(string $id)
     {
-        //
+        return view('eixos.edit')->with(['eixo' => Eixo::find($id)]);
     }
 
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate($this->validationRules, $this->customMessages);
+        
+        $eixo = Eixo::find($id);
+
+        if ($eixo) {
+            $eixo->nome = $request->nome;
+
+            $eixo->save();
+            return redirect()->route('eixos.index')->with(['success'=>'Eixo '.$eixo->id.' atualizado com sucesso']);
+        }
     }
 
     public function destroy(string $id)
