@@ -40,12 +40,6 @@
                             <button type="submit" class="btn btn-light">Ver</i></button>
                         </form>
                         <form
-                            action="{{ route('documentos.edit', $documento->id) }}"
-                            method="GET"
-                        >
-                            <button type="submit" class="btn btn-warning text-white">Atualizar</button>
-                        </form>
-                        <form
                             action="{{ route('documentos.destroy', $documento->id) }}"
                             method="POST"
                             onsubmit="return confirm('Tem certeza que deseja excluir este documento?');"
