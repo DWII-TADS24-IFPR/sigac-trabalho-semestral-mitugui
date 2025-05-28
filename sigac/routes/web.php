@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComprovanteController;
@@ -32,6 +33,8 @@ Route::resource('/comprovantes', ComprovanteController::class);
 Route::resource('/cursos', CursoController::class);
 Route::resource('/declaracoes', DeclaracaoController::class);
 Route::resource('/documentos', DocumentoController::class);
+Route::patch('/documentos/{id}/aprovar', [DocumentoController::class, 'aprovar'])->name('documentos.aprovar');
+Route::patch('/documentos/{id}/rejeitar', [DocumentoController::class, 'rejeitar'])->name('documentos.rejeitar');
 Route::resource('/eixos', EixoController::class);
 Route::resource('/niveis', NivelController::class);
 Route::resource('/turmas', TurmaController::class);
@@ -39,3 +42,5 @@ Route::resource('/turmas', TurmaController::class);
 Route::get('/aluno', function () {
     return view('aluno');
 });
+
+Route::get('/admin', [AdminController::class, 'index']);

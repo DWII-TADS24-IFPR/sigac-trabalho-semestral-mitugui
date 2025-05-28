@@ -110,4 +110,22 @@ class DocumentoController extends Controller
 
         return redirect()->route('documentos.index')->with(['success'=>'Documento '.$documento->id.' deletado com sucesso']);
     }
+    
+    public function aprovar($id)
+    {
+        $documento = Documento::find($id);
+        $documento->status = 'aprovado';
+        $documento->save();
+    
+        return redirect()->back()->with('success', 'Documento aprovado com sucesso!');
+    }
+    
+    public function rejeitar($id)
+    {
+        $documento = Documento::find($id);
+        $documento->status = 'rejeitado';
+        $documento->save();
+    
+        return redirect()->back()->with('success', 'Documento rejeitado com sucesso!');
+    }
 }
