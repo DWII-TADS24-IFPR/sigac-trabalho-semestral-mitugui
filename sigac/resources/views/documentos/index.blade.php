@@ -5,7 +5,7 @@
 @section('content')
 <h1>Documentos</h1>
 
-<button class="btn btn-primary" onclick="window.location.href='{{route('documentos.create')}}'">Adicionar</button>
+<button class="btn btn-primary" onclick="window.location.href='{{route('documentos.create')}}'">Submeter</button>
 
 @if(session('success'))
     <div id="alert-pop-up" class="alert alert-success my-3">
@@ -18,7 +18,7 @@
     <thead>
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">URL</th>
+            <th scope="col">DOCUMENTO</th>
             <th scope="col">DESCRICAO</th>
             <th scope="col">STATUS</th>
             <th></th>
@@ -28,7 +28,7 @@
         @foreach($documentos as $documento)
             <tr>
                 <td scope="col">{{ $documento->id }}</td>
-                <td scope="col">{{ $documento->url }}</td>
+                <td scope="col"><a href="{{ $documento->url }}" target="_blank">Documento</a></td>
                 <td scope="col">{{ $documento->descricao }}</td>
                 <td scope="col">{{ $documento->status }}</td>
                 <td>

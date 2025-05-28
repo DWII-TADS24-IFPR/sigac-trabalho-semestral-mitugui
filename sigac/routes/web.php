@@ -35,3 +35,7 @@ Route::resource('/documentos', DocumentoController::class);
 Route::resource('/eixos', EixoController::class);
 Route::resource('/niveis', NivelController::class);
 Route::resource('/turmas', TurmaController::class);
+
+Route::get('/aluno', function () {
+    return view('aluno');
+});

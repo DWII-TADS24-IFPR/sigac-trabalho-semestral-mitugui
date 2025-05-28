@@ -9,7 +9,7 @@
     <thead>
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">URL</th>
+            <th scope="col">DOCUMENTO</th>
             <th scope="col">DESCRICAO</th>
             <th scope="col">HORAS IN</th>
             <th scope="col">STATUS</th>
@@ -20,7 +20,7 @@
     <tbody>
         <tr>
             <td scope="col">{{ $documento->id }}</td>
-            <td scope="col">{{ $documento->url }}</td>
+            <td scope="col"><a href="{{ $documento->url }}" target="_blank">Documento</a></td>
             <td scope="col">{{ $documento->descricao }}</td>
             <td scope="col">{{ $documento->horas_in }}</td>
             <td scope="col">{{ $documento->status }}</td>

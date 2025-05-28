@@ -9,19 +9,18 @@ use Illuminate\Http\Request;
 class DocumentoController extends Controller
 {
     protected $validationRules = [
-        'url' => 'required|url|max:255',
+        'url' => 'required|file|mimes:pdf',
         'descricao' => 'required|string|max:255',
         'horas_in' => 'required|numeric|min:1',
-        'status' => 'required|string|in:pendente,aprovado,rejeitado',
         'comentario' => 'nullable|string|max:1000',
         'horas_out' => 'nullable|numeric|min:0',
         'categoria_id' => 'required|exists:categorias,id',
     ];
 
     protected $customMessages = [
-        'url.required' => 'A URL do documento é obrigatória.',
-        'url.url' => 'A URL deve ser válida.',
-        'url.max' => 'A URL deve ter no máximo 255 caracteres.',
+        'url.required' => 'O envio do documento é obrigatório.',
+        'url.file' => 'O arquivo enviado deve ser um documento válido.',
+        'url.mimes' => 'O documento deve estar no formato PDF (.pdf).',
     
         'descricao.required' => 'A descrição é obrigatória.',
         'descricao.string' => 'A descrição deve ser um texto válido.',
@@ -30,10 +29,6 @@ class DocumentoController extends Controller
         'horas_in.required' => 'O campo de horas inseridas é obrigatório.',
         'horas_in.numeric' => 'As horas inseridas devem ser numéricas.',
         'horas_in.min' => 'As horas inseridas devem ser maiores que 0.',
-    
-        'status.required' => 'O status é obrigatório.',
-        'status.string' => 'O status deve ser um texto válido.',
-        'status.in' => 'O status deve ser pendente, aprovado ou rejeitado.',
     
         'comentario.string' => 'O comentário deve ser um texto válido.',
         'comentario.max' => 'O comentário deve ter no máximo 1000 caracteres.',
@@ -59,11 +54,13 @@ class DocumentoController extends Controller
     {
         $request->validate($this->validationRules, $this->customMessages);
 
+        $urlPath = env('APP_URL').':8000/storage/'.$request->file('url')->store('documentos', 'public');
+
         Documento::create([
-            'url' => $request->url,
+            'url' => $urlPath,
             'descricao' => $request->descricao,
             'horas_in' => $request->horas_in,
-            'status' => $request->status,
+            'status' => 'pendente',
             'comentario' => $request->comentario,
             'horas_out' => $request->horas_out,
             'categoria_id' => $request->categoria_id
