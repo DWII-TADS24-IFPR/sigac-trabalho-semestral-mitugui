@@ -43,5 +43,10 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+
+        <x-secondary-button class="ms-3" onclick="window.location.href='{{ route('register') }}'">
+            {{ __('Register') }}
+        </x-secondary-button>
+
     </form>
 </x-guest-layout>
