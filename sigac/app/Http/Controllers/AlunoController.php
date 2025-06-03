@@ -141,7 +141,13 @@ class AlunoController extends Controller
         $aluno = Aluno::find($id);
 
         if ($aluno) {
+            $user = $aluno->user;
+
             $aluno->delete();
+            
+            if ($user) {
+                $user->delete();
+            }
         }
 
         return redirect()->route('alunos.index')->with(['success'=>'Aluno (a) '.$aluno->nome.' deletado (a) com sucesso']);
