@@ -13,7 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -37,8 +37,8 @@ class RegisteredUserController extends Controller
         $validationRules = [
             'name' => 'required|string|max:255',
             'cpf' => 'required|string|size:14|unique:alunos,cpf',
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => 'required|string|lowercase|email|max:255|unique:users,email',
+            'password' => 'required|confirmed|string|min:8',
             'curso_id' => 'required|exists:cursos,id',
             'turma_id' => 'required|exists:turmas,id',
         ];
@@ -80,11 +80,11 @@ class RegisteredUserController extends Controller
             'role' => 'aluno'
         ]);
 
-        $aluno = Aluno::create([
+        Aluno::create([
             'nome' => $request->name,
             'cpf' => $request->cpf,
             'email' => $request->email,
-            'senha' => $request->password,
+            'senha' => Hash::make($request->password),
             'user_id' => $user->id,
             'curso_id' => $request->curso_id,
             'turma_id' => $request->turma_id,

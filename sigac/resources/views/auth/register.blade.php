@@ -26,10 +26,12 @@
         <!-- Curso -->
         <div class="mt-4">
             <x-input-label for="curso_id" :value="__('Curso')" />
-            <select name="curso_id" id="curso_id" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+            <select name="curso_id" id="curso_id" required class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                 <option value="">Selecione um curso</option>
                 @foreach ($cursos as $curso)
-                    <option value="{{ $curso->id }}">{{ $curso->nome }}</option>
+                    <option value="{{ $curso->id }}" {{ old('curso_id') == $curso->id ? 'selected' : '' }}>
+                        {{ $curso->nome }}
+                    </option>
                 @endforeach
             </select>
             <x-input-error :messages="$errors->get('curso_id')" class="mt-2" />
@@ -38,10 +40,12 @@
         <!-- Turma -->
         <div class="mt-4">
             <x-input-label for="turma_id" :value="__('Turma')" />
-            <select name="turma_id" id="turma_id" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required>
+            <select name="turma_id" id="turma_id" required class="block mt-1 w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                 <option value="">Selecione uma turma</option>
                 @foreach ($turmas as $turma)
-                    <option value="{{ $turma->id }}">{{ $turma->ano }} - {{ $turma->curso->nome }}</option>
+                    <option value="{{ $turma->id }}" {{ old('turma_id') == $turma->id ? 'selected' : '' }}>
+                        {{ $turma->ano }} - {{ $turma->curso->nome }}
+                    </option>
                 @endforeach
             </select>
             <x-input-error :messages="$errors->get('turma_id')" class="mt-2" />
