@@ -11,8 +11,12 @@ class Documento extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'documentos';
-    protected $fillable = ['url', 'descricao', 'horas_in', 'status', 'comentario', 'horas_out', 'categoria_id'];
+    protected $fillable = ['url', 'user_id', 'descricao', 'horas_in', 'status', 'comentario', 'horas_out', 'categoria_id'];
 
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+ 
     public function categoria() {
         return $this->belongsTo(Categoria::class);
     }

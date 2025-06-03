@@ -28,6 +28,7 @@
             <th scope="col">ID</th>
             <th scope="col">DOCUMENTO</th>
             <th scope="col">DESCRICAO</th>
+            <th scope="col">ALUNO</th>
             <th scope="col">AÇÕES</th>
         </tr>
     </thead>
@@ -37,6 +38,7 @@
                 <td>{{ $documento->id }}</td>
                 <td><a href="{{ $documento->url }}" target="_blank">Documento</a></td>
                 <td>{{ $documento->descricao }}</td>
+                <td>{{ $documento->user->name }}</td>
                 <td>
                     <form action="{{ route('documentos.aprovar', $documento->id) }}" method="POST" class="d-inline">
                         @csrf

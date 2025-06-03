@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Models\Documento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DocumentoController extends Controller
 {
@@ -63,7 +64,8 @@ class DocumentoController extends Controller
             'status' => 'pendente',
             'comentario' => $request->comentario,
             'horas_out' => $request->horas_out,
-            'categoria_id' => $request->categoria_id
+            'categoria_id' => $request->categoria_id,
+            'user_id' => Auth::id(),
         ]);
 
         return redirect()->route('documentos.index')->with(['success'=>'Documento criado com sucesso!']);
