@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Curso;
+use App\Models\Documento;
 use App\Models\Turma;
 use Illuminate\Http\Request;
 
@@ -45,9 +46,27 @@ class TurmaController extends Controller
 
     public function show(string $id)
     {
-        $turma = Turma::find($id);
-        $turma_curso = Curso::find($turma->curso_id);
-        return view('turmas.show')->with(['turma' => $turma, 'turma_curso' => $turma_curso]);
+        $turma = Turma::with('alunos.user')->find($id);
+        $turma_curso = $turma->curso;
+
+        $dadosGrafico = [];
+
+        foreach ($turma->alunos as $aluno) {
+            $user = $aluno->user;
+
+            if ($user) {
+                $horasAprovadas = Documento::where('user_id', $user->id)
+                    ->where('status', 'aprovado')
+                    ->sum('horas_out');
+
+                $dadosGrafico[] = [
+                    'nome' => $user->name,
+                    'horas' => $horasAprovadas
+                ];
+            }
+    }
+
+    return view('turmas.show', compact('turma', 'turma_curso', 'dadosGrafico'));
     }
 
     public function edit(string $id)

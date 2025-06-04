@@ -18,6 +18,7 @@
     <thead>
         <tr>
             <th scope="col">ID</th>
+            <th scope="col">CURSO</th>
             <th scope="col">ANO</th>
             <th></th>
         </tr>
@@ -26,6 +27,7 @@
         @foreach($turmas as $turma)
             <tr>
                 <td scope="col">{{ $turma->id }}</td>
+                <td scope="col">{{ $turma->curso->nome }}</td>
                 <td scope="col">{{ $turma->ano }}</td>
                 <td>
                     <div class="d-flex gap-3 justify-content-end">
