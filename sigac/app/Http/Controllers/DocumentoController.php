@@ -43,7 +43,7 @@ class DocumentoController extends Controller
     
     public function index()
     {
-        return view('documentos.index')->with(['documentos' => Documento::all()]);
+        return view('documentos.index')->with(['documentos' => Documento::where('user_id', Auth::id())->get()]);
     }
 
     public function create()
