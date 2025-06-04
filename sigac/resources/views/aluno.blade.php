@@ -15,7 +15,16 @@
     <button type="button" class="btn btn-primary py-4" style="grid-column: span 3;" onclick="window.location.href='{{route('documentos.index')}}'">
         Submeter Documento
     </button>
-</div>
+    @if($podeEmitirCertificado)
+        <button type="button" class="btn btn-primary py-4" style="grid-column: span 3;" onclick="window.location.href='{{ route('aluno.declaracao') }}'">
+            Gerar Declaração de Cumprimento das Horas Complementares
+        </button>
+    @else
+        <button type="button" class="btn btn-secondary py-4" style="grid-column: span 3;" disabled>
+            Ainda faltam horas para gerar a declaração
+        </button>
+    @endif
 
+</div>
 
 @endsection

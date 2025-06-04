@@ -69,6 +69,8 @@ Route::middleware(['auth', 'role:aluno'])->group(function () {
     });
 
     Route::resource('/documentos', DocumentoController::class);
+
+    Route::get('/aluno/declaracao', [AlunoDashboardController::class, 'gerarDeclaracao'])->name('aluno.declaracao');
 });
 
 require __DIR__.'/auth.php';
